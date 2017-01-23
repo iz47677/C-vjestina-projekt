@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model AddProductViewModel
+
+@{
+    ViewData["Title"] = "Add new product";
+}
+
+<h3>Add new product</h3>
+@using (Html.BeginForm("AddProduct", "Products", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Name, "Name");
+    @Html.TextBoxFor(m => m.Description, "Description");
+    @Html.DropDownListFor(m => m.Category, new SelectList(Model._repository.Categories));
+    @Html.TextBoxFor(m => m.Price, "Price");
+    @if ((string)ViewData["ErrorProduct"] == "true")
+    {
+        <p style="color:red;">Error: all fields required</p>
+    }
+    <input type="submit" value="Add product">
+}
+<a asp-area="" asp-controller="Products" asp-action="Index">Back to products</a>

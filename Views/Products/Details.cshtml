@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Details</h3>
+<ul>
+    <li><b>@Html.DisplayFor(modelItem => Model.Name)</b></li>
+    <li>@Html.DisplayFor(modelItem => Model.Description)</li>
+    <li>@Html.DisplayFor(modelItem => Model.Category)</li>
+    <li>@Html.DisplayFor(modelItem => Model.Price)</li>
+</ul>
+<a asp-area="" asp-controller="Products" asp-action="Index">Back to products</a>

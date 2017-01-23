@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model ProductDbContext
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h3>Categories</h3>
+<a asp-area="" asp-controller="Products" asp-action="AddCategory">Add new category</a>
+
+@foreach (var item in Model.Categories)
+{
+    <ul>
+        <li>@Html.DisplayFor(modelItem => item._category)</li>
+        <li><a href="~/Products/RemoveCategory?category=@item">Remove category</a></li>
+    </ul>
+}

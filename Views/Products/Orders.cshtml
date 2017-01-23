@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model ProductDbContext
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h3>Orders</h3>
+@foreach (var item in Model.Orders)
+{
+    <ul>
+        <li>User e-mail: @Html.DisplayFor(modelItem => item.E_mail)</li>
+        <li>@foreach (var item2 in item._repository.Products.Where(i => i.IsSelected == true))
+            {
+                <ul>
+                    <li>@Html.DisplayFor(modelItem2 => item2.Id)</li>
+                    <li>@Html.DisplayFor(modelItem2 => item2.Name)</li>
+                </ul>
+            }</li>
+        <li>Total price: @Html.DisplayFor(modelItem => item.totalPrice)$</li>
+    </ul>
+}

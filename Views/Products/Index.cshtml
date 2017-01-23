@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model ProductsViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h3>Products</h3>
+@if (User.IsInRole("admin"))
+{
+    <a asp-area="" asp-controller="Products" asp-action="AddProduct">Add new product</a>
+}
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    @Html.DropDownListFor(m => m.SelectedCategory, new SelectList(Model._repository.Categories), "Choose category")
+    <input type="submit" value="Choose category">
+}
+@if ((string)ViewData["Category"] != "null")
+{
+    foreach (var item in Model._repository.Products)
+    {
+        if (item.Category == (string)ViewData["Category"])
+        {
+            <ul>
+                <li><b>@Html.DisplayFor(modelItem => item.Name)</b></li>
+                <li>Price: @Html.DisplayFor(modelItem => item.Price)$</li>
+                <li><a href="~/Products/Details?product=@item">Details</a></li>
+                <li><a href="~/Products/AddToCart?product=@item">Add to cart</a></li>
+                @if (User.IsInRole("admin"))
+                {
+                    <li><a href="~/Products/RemoveProduct?product=@item">Remove product</a></li>
+                }
+            </ul>
+        }
+    }
+}

@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model AddCategoryViewModel
+
+@{
+    ViewData["Title"] = "Add new category";
+}
+
+<h3>Add new category</h3>
+@using (Html.BeginForm("AddCategory", "Products", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Name, "Name");
+    @if ((string)ViewData["ErrorCategory"] == "true")
+    {
+        <p style="color:red;">Error: name required</p>
+    }
+    <input type="submit" value="Add category">
+}
+<a asp-area="" asp-controller="Products" asp-action="Categories">Back to categories</a>

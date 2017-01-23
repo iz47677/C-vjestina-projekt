@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model PurchaseViewModel
+
+@{
+    ViewData["Title"] = "Shopping cart";
+}
+
+<h3>Shopping cart</h3>
+@foreach (var item in Model._repository.Products.Where(i => i.IsSelected == true))
+{
+    Model.totalPrice += item.Price;
+    <ul>
+        <li><b>@Html.DisplayFor(modelItem => item.Name)</b></li>
+        <li>Price: @Html.DisplayFor(modelItem => item.Price)$</li>
+        <li><a href="~/Products/Details?product=@item">Details</a></li>
+        <li><a href="~/Products/RemoveFromCart?product=@item">Remove from cart</a></li>
+    </ul>
+}
+<b>Total Price: @Model.totalPrice$</b>
+
+@Html.TextBoxFor(m => m.E_mail, "E-mail")
+@if ((string)ViewData["ErrorCartEmail"] == "true")
+{
+    <p style="color:red;">Error: e-mail required</p>
+}
+@if ((string)ViewData["ErrorCartEmpty"] == "true")
+{
+    <p style="color:red;">Error: empty order</p>
+}
+
+<a href="~/Products/Buy?Purchase=@Model">Buy</a>
